@@ -4,7 +4,7 @@
 
 [install haskell stack](https://docs.haskellstack.org/en/stable/install_and_upgrade/)
 
-### Compile, Install and Run sca tools
+### Compile, Install and Run sca (Static Code Analysis) tools
 
 ```shell
 cd sca
