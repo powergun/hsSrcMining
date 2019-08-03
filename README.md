@@ -2,7 +2,11 @@
 
 ## How to build
 
-[install haskell stack](https://docs.haskellstack.org/en/stable/install_and_upgrade/)
+### Prerequisite
+
+- Haskell stack
+
+[Install haskell stack on Linux, Mac and Windows](https://docs.haskellstack.org/en/stable/install_and_upgrade/)
 
 ### Compile, Install and Run sca (Static Code Analysis) tools
 
