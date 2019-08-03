@@ -26,6 +26,8 @@ readFileSafe pth = do
 
 preFilter :: (FilePath, FilePath) -> Bool
 preFilter (pth, baseName)
+  | head baseName == '.' = False
+  -- | takeExtension baseName == "" = False
   | baseName `elem` [".", "..", ".git", ".terraform"] = False
   | otherwise = True
 
@@ -74,4 +76,4 @@ display (WalkResult m) = do
   forM_ sorted $ \(k, v) -> do
     let vStr = T.pack (show v)
         pStr = T.unpack (T.justifyRight 10 ' ' vStr)
-    print $ pStr ++ "  " ++ k
+    putStrLn $ pStr ++ "  " ++ k

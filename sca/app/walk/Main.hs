@@ -1,6 +1,8 @@
 module Main where
 
+import qualified Control.Monad        as M
 import qualified Control.Monad.Writer as W
+import           System.Environment   (getArgs)
 import qualified Walk
 
 -- (_, r) <- W.runWriterT (walkM "..")
@@ -15,5 +17,9 @@ import qualified Walk
 -- display r3
 main :: IO ()
 main = do
-  (_, r) <- W.runWriterT (Walk.walkM "..")
+  args <- getArgs
+  M.when (length args /= 1) $ do
+    putStrLn "Usage: prog <filename>"
+    error "Incorrect args."
+  (_, r) <- W.runWriterT (Walk.walkM (head args))
   Walk.display r
