@@ -28,3 +28,7 @@ https://stackoverflow.com/questions/53466541/haskell-aeson-parsing-nested-json-w
 
 (but he didn't need to implement a **round-trip**, meaning that he didn't care if the original json data was lost due to the use of
 generic, "opaque" data type)
+
+see also: (this article helps me to update shellast to dump the position-map structure)
+
+https://artyom.me/aeson
