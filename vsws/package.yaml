@@ -22,11 +22,13 @@ description: Please see the README on GitHub at <https://github.com/githubuser/v
 dependencies:
   - base >= 4.7 && < 5
   - aeson
+  - aeson-pretty
   - optparse-applicative
   - mtl
   - bytestring
   - base-compat
   - text
+  - filepath
 
 library:
   source-dirs: src

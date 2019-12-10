@@ -1,20 +1,44 @@
-{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module Workspace.Organizer
-    ( someFunc
-    )
-where
+module Workspace.Organizer (someFunc) where
 
-import           Prelude.Compat
-
-import           Control.Applicative            ( empty )
 import           Data.Aeson
+import qualified Data.Aeson.Encode.Pretty as JP
+import qualified Data.ByteString.Lazy     as B
+import qualified Data.List                as Ls
+import qualified Data.Ord                 as O
+import           Data.Text
+import           GHC.Generics
+import qualified System.FilePath.Posix    as Sys
+
+data ProjectDir = ProjectDir
+  { path :: String
+  } deriving (Generic, Show, Ord, Eq)
+
+data Workspace = Workspace
+  { folders  :: [ProjectDir]
+  , settings :: Value
+  } deriving (Generic, Show)
+
+instance ToJSON ProjectDir
+instance FromJSON ProjectDir
+instance ToJSON Workspace
+instance FromJSON Workspace
 
 someFunc :: IO ()
 someFunc = do
-    let req = decode "{ \"foo\": false, \"bar\": [1, 2, 3] }" :: Maybe Value
-    print req
-    let r = encode req
-    print r
+  s <- B.readFile "/Users/wein/work/dev/active.code-workspace"
+  let result = (decode s) :: Maybe Workspace
+  case result of
+    Just ws ->
+        B.writeFile "/var/tmp/test.json" $ JP.encodePretty (updateProjectDirs ws)
+    _       -> error "iddqd"
 
+sortByBaseName :: [ProjectDir] -> [ProjectDir]
+sortByBaseName = Ls.sortBy (\l r -> O.compare (Sys.takeBaseName . path $ l) (Sys.takeBaseName . path $ r))
+
+updateProjectDirs :: Workspace -> Workspace
+updateProjectDirs ws =
+  let flds = sortByBaseName $ folders ws
+  in Workspace flds (settings ws)
