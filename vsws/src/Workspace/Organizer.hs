@@ -26,14 +26,14 @@ instance FromJSON ProjectDir
 instance ToJSON Workspace
 instance FromJSON Workspace
 
-someFunc :: IO ()
-someFunc = do
-  s <- B.readFile "/Users/wein/work/dev/active.code-workspace"
+someFunc :: FilePath -> IO ()
+someFunc filename = do
+  s <- B.readFile filename
   let result = (decode s) :: Maybe Workspace
   case result of
     Just ws ->
-        B.writeFile "/var/tmp/test.json" $ JP.encodePretty (updateProjectDirs ws)
-    _       -> error "iddqd"
+        B.writeFile filename $ JP.encodePretty (updateProjectDirs ws)
+    _       -> error $ "failed to parse the workspace file:\n" ++ filename
 
 sortByBaseName :: [ProjectDir] -> [ProjectDir]
 sortByBaseName = Ls.sortBy (\l r -> O.compare (Sys.takeBaseName . path $ l) (Sys.takeBaseName . path $ r))
