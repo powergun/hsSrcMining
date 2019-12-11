@@ -29,6 +29,7 @@ dependencies:
   - base-compat
   - text
   - filepath
+  - unordered-containers
 
 library:
   source-dirs: src
