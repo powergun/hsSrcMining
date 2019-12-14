@@ -1,6 +1,7 @@
 module Walk
   ( walkM
   , display
+  , analysis
   ) where
 
 import           Control.Monad         (forM, forM_)
