@@ -1,5 +1,14 @@
 # Program Source Mining
 
+## Inspiration: Megaparsec
+
+see: <https://markkarpov.com/tutorial/megaparsec.html>
+
+## Inspiration: Bidirectional TOML Serialization
+
+see: <https://kowainik.github.io/posts/2019-01-14-tomland>
+
+
 ## How to build
 
 ### Prerequisite
